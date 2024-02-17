@@ -12,9 +12,18 @@ function getCartData() {
 
 function addToCart(e) {
   //console.log("!!!");
+  let button = e.target;
+  button.disabled = true;
+  let cartData = getCartData() || {};
+  let parentBox = button.parentNode;
+  let itemId = button.getAttribute("data-id");
+  let itemTitle = parentBox.querySelector(".item_title").innerHTML; // название товара
+  let itemPrice = parentBox.querySelector(".item_price").innerHTML; // стоимость товара
+  console.log(cartData);
+  cartData[itemId] = [itemTitle, itemPrice, 1];
+  console.log(cartData);
 }
 
 for (let i = 0; i < itemBox.length; i++) {
-   itemBox[i].querySelector(".add_item").addEventListener("click", addToCart);
+  itemBox[i].querySelector(".add_item").addEventListener("click", addToCart);
 }
-
