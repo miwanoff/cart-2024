@@ -26,3 +26,8 @@
   padding: 10px;
   border: 1px solid #aaaaaa;
 }
+.minus {
+    color: red;
+    font-size: 40px;
+    font-weight: bold;
+}
