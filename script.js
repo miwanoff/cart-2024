@@ -20,8 +20,21 @@ function addToCart(e) {
   let itemTitle = parentBox.querySelector(".item_title").innerHTML; // название товара
   let itemPrice = parentBox.querySelector(".item_price").innerHTML; // стоимость товара
   console.log(cartData);
-  cartData[itemId] = [itemTitle, itemPrice, 1];
+  //   cartData[itemId] = [itemTitle, itemPrice, 1];
+  if (cartData.hasOwnProperty(itemId)) {
+    // если такой товар уже в корзине, то добавляем +1 к его количеству
+    cartData[itemId][2] += 1;
+  } else {
+    // если товара в корзине еще нет, то добавляем в объект
+    cartData[itemId] = [itemTitle, itemPrice, 1];
+  }
   console.log(cartData);
+  setCartData(cartData);
+  button.disabled = false;
+  cartCont.innerHTML = "Товар добавлен в корзину.";
+  setTimeout(function () {
+    cartCont.innerHTML = "Продолжить покупки...";
+  }, 1000);
 }
 
 for (let i = 0; i < itemBox.length; i++) {
