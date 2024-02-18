@@ -53,6 +53,26 @@ function addToCart(e) {
   }, 1000);
 }
 
+function removeItem(minus) {
+  let cartData = getCartData();
+  if (cartData) {
+    let item = minus.getAttribute("data-id");
+    console.log(item);
+    console.log(cartData[item]);
+    cartData[item][2] = cartData[item][2] - 1;
+
+    if (cartData[item][2] == 0) {
+      delete cartData[item];
+    }
+    setCartData(cartData);
+    let length = Object.getOwnPropertyNames(cartData);
+    if (length == 0) {
+      clearCart();
+    }
+    openCart();
+  }
+}
+
 function openCart(e) {
   let cartData = getCartData();
   console.log(cartData);
@@ -60,12 +80,12 @@ function openCart(e) {
     let cardTable = "";
     cardTable =
       '<table class="shopping_list"><tr><th>Наименование</th><th>Цена</th><th>Кол-во</th><th>Удалить товар</th></tr>';
-    for (let items in cartData) {
+    for (let item in cartData) {
       cardTable += "<tr>";
-      for (let i = 0; i < cartData[items].length; i++) {
-        cardTable += "<td>" + cartData[items][i] + "</td>";
+      for (let i = 0; i < cartData[item].length; i++) {
+        cardTable += "<td>" + cartData[item][i] + "</td>";
       }
-      cardTable += `<td><span class="minus" onclick="removeItem(this)" data-id="${items}">-</span></td>`;
+      cardTable += `<td><span class="minus" onclick="removeItem(this)" data-id="${item}">-</span></td>`;
       cardTable += "</tr>";
     }
     cardTable += `<tr><td>Итого:</td><td></td><td>${count()}</td><td></td></tr>`;
